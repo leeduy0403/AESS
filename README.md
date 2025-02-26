@@ -15,7 +15,8 @@
 
 1. **Apply migrations:**
 	```bash
-	python manage.py makemigration
+ 	cd aess
+	python manage.py makemigrations
 	python manage.py migrate
 	```
 
