@@ -1,3 +1,5 @@
 django
 djangorestframework
 environs
+google-auth-oauthlib
+python-docx
