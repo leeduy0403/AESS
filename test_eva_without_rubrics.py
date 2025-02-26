@@ -72,9 +72,9 @@ def make_prompt(submission_content, description_content, rubric_content):
 def extract_score_and_feedback(response_text):
     score = None
     feedback = ""
-    
+
     lines = response_text.strip().split("\n")
-    
+
     for line in lines:
         line = line.strip()
         if line.lower().startswith("score:"):
@@ -83,10 +83,13 @@ def extract_score_and_feedback(response_text):
                 score = int(match.group(0))
         elif line.lower().startswith("feedback:"):
             feedback = line[len("Feedback:"):].strip()  # Extract feedback after "Feedback:"
-    
+
     if score is None:
         score = 0  # Default if parsing fails
-    
+
+    # 🛠 Remove trailing numbers from the feedback
+    feedback = re.sub(r"\d+$", "", feedback).strip()
+
     return score, feedback
 
 def evaluate_submissions(input_json_path, output_json_path):
