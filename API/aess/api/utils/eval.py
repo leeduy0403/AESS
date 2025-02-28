@@ -1,10 +1,10 @@
-import re
+import re 
 import os
 import json
 import requests
 import mimetypes
 import google.generativeai as genai
-from .load_creds import load_creds
+from load_creds import load_creds
 from io import BytesIO
 from pdfminer.high_level import extract_text
 from docx import Document
@@ -55,46 +55,48 @@ model = genai.GenerativeModel(
     generation_config=generation_config,
 )
 
-def clean_response(response):
-    return response.replace("**", "").replace("  ", " ")
+def clean_feedback(feedback):
+    """ Cleans feedback by removing inline numbers and fixing abrupt endings. """
+    feedback = re.sub(r"(?<!\s)\d+", "", feedback)
+    return feedback.strip()
 
-def make_prompt(submission_content, description_content, rubric_content):
-    return (
-        f"DESCRIPTION: {description_content}\n"
-        f"RUBRIC: {rubric_content}\n"
-        f"CONTENT: {submission_content}\n\n"
-        f"PROMPT: Provide an evaluation of the given CONTENT based on the DESCRIPTION and RUBRIC. "
-        f"Your response should follow this format exactly:\n\n"
-        f"Score: (a single number from 1 to 6)\n"
-        f"Feedback: (A clear and concise textual feedback, without any embedded numbers or scores.)"
-    )
-
-def extract_score_and_feedback(response_text):
-    score = None
-    feedback = ""
-
+def extract_scores_and_feedback(response_text):
+    """ Extracts overall score, component scores, and cleans feedback """
+    score, coherence, lexical, grammar = 0, 0, 0, 0
+    feedback = []
+    
     lines = response_text.strip().split("\n")
-
+    
     for line in lines:
         line = line.strip()
         if line.lower().startswith("score:"):
-            match = re.search(r"\d+", line)  # Extract the first number
+            match = re.search(r"\b[1-6]\b", line)
             if match:
                 score = int(match.group(0))
+        elif line.lower().startswith("coherence and cohesion:"):
+            match = re.search(r"\b[0-2]\b", line)
+            if match:
+                coherence = int(match.group(0))
+        elif line.lower().startswith("lexical resource:"):
+            match = re.search(r"\b[0-2]\b", line)
+            if match:
+                lexical = int(match.group(0))
+        elif line.lower().startswith("grammatical range and accuracy:"):
+            match = re.search(r"\b[0-2]\b", line)
+            if match:
+                grammar = int(match.group(0))
         elif line.lower().startswith("feedback:"):
-            feedback = line[len("Feedback:"):].strip()  # Extract feedback after "Feedback:"
+            feedback.append(line[len("Feedback:"):].strip())
+        elif feedback:
+            feedback.append(line.strip())
+    
+    feedback_text = clean_feedback(" ".join(feedback))
+    return score, coherence, lexical, grammar, feedback_text
 
-    if score is None:
-        score = 0  # Default if parsing fails
+def evaluate_submissions(input_json_path, output_json_path):
+    with open(input_json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
 
-    # 🛠 Remove trailing numbers from the feedback
-    feedback = re.sub(r"\d+$", "", feedback).strip()
-
-    return score, feedback
-
-def evaluate_submissions(data):
-    # with open(input_json_path, 'r', encoding='utf-8') as f:
-    #     data = json.load(f)
     results = []
     
     description_content = "\n".join([load_file_content(url) for entry in data.get("description", []) for url in entry.get("description_urls", [])])
@@ -108,15 +110,33 @@ def evaluate_submissions(data):
         submission_content = "\n".join(submission_texts)
         
         try:
-            prompt = make_prompt(submission_content, description_content, rubric_content)
-            response = model.generate_content(prompt)
-            response_text = clean_response(response.text)
+            prompt = (
+                f"DESCRIPTION: {description_content}\n"
+                f"RUBRIC: {rubric_content}\n"
+                f"CONTENT: {submission_content}\n\n"
+                f"PROMPT: Provide an evaluation of the given CONTENT based on the DESCRIPTION and RUBRIC. "
+                f"Your response should follow this format exactly:\n\n"
+                f"Score: (a single number from 1 to 6)\n"
+                f"Coherence and Cohesion: (a single number from 0 to 2)\n"
+                f"Lexical Resource: (a single number from 0 to 2)\n"
+                f"Grammatical Range and Accuracy: (a single number from 0 to 2)\n"
+                f"Feedback: (A clear and concise textual feedback, without any embedded numbers or scores.)"
+            )
 
-            score, feedback = extract_score_and_feedback(response_text)
+            response = model.generate_content(prompt)
+            response_text = response.text.strip()
+
+            score, coherence, lexical, grammar, feedback = extract_scores_and_feedback(response_text)
+            score = max(1, min(6, coherence + lexical + grammar))  # Ensure score validity
 
             results.append({
                 "submission_id": submission_id,
                 "score": score,
+                "components": {
+                    "Coherence and Cohesion": coherence,
+                    "Lexical Resource": lexical,
+                    "Grammatical Range and Accuracy": grammar
+                },
                 "feedback": feedback
             })
         except Exception as e:
@@ -124,10 +144,16 @@ def evaluate_submissions(data):
             results.append({
                 "submission_id": submission_id,
                 "score": 0,
+                "components": {
+                    "Coherence and Cohesion": 0,
+                    "Lexical Resource": 0,
+                    "Grammatical Range and Accuracy": 0
+                },
                 "feedback": "Error processing submission."
             })
     
     print(f"Evaluation complete. Results saved")
     return {"results": results}
+    
     # with open(output_json_path, 'w', encoding='utf-8') as f:
     #     json.dump(output_data, f, indent=4)

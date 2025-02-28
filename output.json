@@ -3,102 +3,202 @@
         {
             "submission_id": "67bd8a4cf90b30ba5b336a11",
             "score": 3,
-            "feedback": "This response shows some awareness of audience and provides a few reasons to support the author's claim. However, the reasons are not fully elaborated and the response is awkward in parts."
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response demonstrates a basic understanding of the prompt, but the ideas are not well-developed and the writing is disorganized. The student uses some general reasons to support his point, but they are not fully elaborated."
         },
         {
             "submission_id": "67bd8a54f90b30ba5b336a15",
-            "score": 2,
-            "feedback": "This response is underdeveloped. It offers a few reasons why computers are affecting people but these reasons are not elaborated on. The writing is awkward and fragmented."
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is very underdeveloped. It offers a few general reasons for why computers are affecting people, but the ideas are not elaborated and the writing is very confusing."
         },
         {
             "submission_id": "67bd8a71f90b30ba5b336a3d",
             "score": 4,
-            "feedback": "This response demonstrates a clear position and provides adequate support for that position. The reasons are moderately elaborated and some specific details are included. The organization is satisfactory and there are a few transitions."
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is somewhat developed, taking a clear position and providing adequate support. The reasons are developed with a mix of general and specific details. The writing shows satisfactory organization with some transitional language."
         },
         {
             "submission_id": "67bd8a8cf90b30ba5b336a89",
-            "score": 5,
-            "feedback": "This response is well-developed, taking a clear position and providing persuasive support. The writer uses a variety of specific details to support3 reasons. The"
+            "score": 4,
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is well-developed and provides clear and persuasive support for its claim. However, the writing is not always cohesive, as therd paragraph begins with a sentence that does not follow logically from the previous paragraph."
         },
         {
             "submission_id": "67bd8a93f90b30ba5b336a8d",
-            "score": 4,
-            "feedback": "This essay presents a clear position and provides adequate support for its argument. The writer uses specific examples like3-7 inches and30 to35 hours to support the idea that computers are bad for eyesight and33% to support the idea that inappropriate content is easily found."
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response has well-developed reasons, but the paper is not organized well."
         },
         {
             "submission_id": "67bd8a99f90b30ba5b336a91",
             "score": 3,
-            "feedback": "This response provides some reasons why computers are good to have, but the reasons are minimally developed. For example, the writer states that computers are good for keeping in touch with friends, but does not elaborate on this idea."
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response shows some organization and awareness of audience, but the ideas are minimally developed. The writer uses a few general reasons, but they are not elaborated with specific details. The response is also awkward in parts and contains errors in grammar and mechanics."
         },
         {
             "submission_id": "67bd8a9ef90b30ba5b336a95",
-            "score": 4,
-            "feedback": "This response provides a clear position and supports it with some fully developed reasons and others that are minimally developed."
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 0
+            },
+            "feedback": ""
         },
         {
             "submission_id": "67bd8aa3f90b30ba5b336a99",
-            "score": 3,
-            "feedback": "This response provides some support for the position that computers are beneficial, but the3 reasons are minimally developed. The details are general and the organization is somewhat disjointed."
+            "score": 4,
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is somewhat developed, including a clear position and some support.  The organization is satisfactory, though the writing is awkward in parts and the transitional language is limited."
         },
         {
             "submission_id": "67bd8aaaf90b30ba5b336a9d",
-            "score": 4,
-            "feedback": "This essay is somewhat developed. The writer clearly states a position,3and provides a few reasons to support it. The essay has some organization, but it needs more transitions."
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is somewhat developed. The writer takes a clear position and offers some support for it. However, the response lacks strong organization. Therd paragraph is sentences and has no transitions. Theth paragraph has a run-on sentence and a"
         },
         {
             "submission_id": "67bd8abef90b30ba5b336aa1",
-            "score": 4,
-            "feedback": "This response takes a clear position and provides adequate support for it. The reasons are adequately elaborated with a mix of general and specific details. The organization is satisfactory, though it could be improved by adding transitions."
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response provides some adequate support for the position that computers are bad, but the organization is weak. The"
         },
         {
             "submission_id": "67bd8acef90b30ba5b336ac9",
             "score": 3,
-            "feedback": "The response provides3 reasons why computers are good, but only one is developed with specific details. The3rd reason is only2 sentences long and does not elaborate."
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is minimally developed. The writer lists reasons why a computer is not bad, but does not elaborate on them."
         },
         {
             "submission_id": "67bd8ad3f90b30ba5b336acd",
             "score": 3,
-            "feedback": "This response shows some awareness of the audience, but the ideas are not developed enough to fully support the position. The essay is3 organized and3 contains some transitions, but the ideas are general and3 not fully elaborated."
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is minimally developed. It takes a position against using computers, but the support is general and list-like. The response is somewhat organized, but it is awkward in parts and contains few transitions."
         },
         {
             "submission_id": "67bd8ad8f90b30ba5b336ad1",
-            "score": 4,
-            "feedback": "This response adequately supports its position with specific examples, such"
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response shows some development in that it provides reasons for why computers are necessary, but the ideas are not fully elaborated and the organization is weak."
         },
         {
             "submission_id": "67bd8addf90b30ba5b336ad5",
-            "score": 4,
-            "feedback": "This response takes a clear position and provides adequate support. It has reasons with some elaboration and a mix of general and specific details."
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response demonstrates a clear position and provides adequate support for it. The ideas are somewhat organized, but there are some grammatical errors and the writing is not very fluent."
         },
         {
             "submission_id": "67bd8ae3f90b30ba5b336ad9",
             "score": 3,
-            "feedback": "This response is minimally developed. While the writer takes a clear position on the dangers of technology, the support is inadequate and the details are mostly general."
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response shows some awareness of an audience and a attempts to take a position, but it is minimally developed. The ideas are not fully developed and there are some grammatical errors."
         },
         {
             "submission_id": "67bd8afbf90b30ba5b336b01",
-            "score": 5,
-            "feedback": "This essay provides a clear position and uses specific details to support it. The organization is strong, and the writer uses some transitional language."
+            "score": 3,
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 0
+            },
+            "feedback": ""
         },
         {
             "submission_id": "67bd8b02f90b30ba5b336b05",
-            "score": 5,
-            "feedback": "This response develops a clear position about the overuse of computers and provides several reasons for this position. The reasons are moderately well-elaborated,"
+            "score": 4,
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response provides adequate support for its position, but the ideas are not fully developed and the writing is not consistently fluent."
         },
         {
             "submission_id": "67bd8b29f90b30ba5b336b09",
             "score": 4,
-            "feedback": "This response develops a clear position and provides adequate support with specific details. The response is somewhat fluent and uses transitional language, but it would be stronger with more varied and sophisticated transitions."
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response provides adequate support for the position that computers are a bad thing."
         },
         {
             "submission_id": "67bd8b2ef90b30ba5b336b0d",
-            "score": 5,
-            "feedback": "This response presents a clear position and provides persuasive support. The reasons are well-elaborated and specific details are used to support them. The response is well-organized, using transitions effectively."
+            "score": 4,
+            "components": {
+                "Coherence and Cohesion": 2,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is well-developed and provides persuasive support for the argument that computers are bad."
         },
         {
             "submission_id": "67bd8b33f90b30ba5b336b11",
             "score": 3,
-            "feedback": "This response provides some reasons why computers are good, but the explanations are very general and underdeveloped."
+            "components": {
+                "Coherence and Cohesion": 1,
+                "Lexical Resource": 1,
+                "Grammatical Range and Accuracy": 1
+            },
+            "feedback": "This response is minimally developed. It includes some reasons, but they are not fully elaborated. There is some organization, but the transitions are awkward."
         }
     ]
 }
