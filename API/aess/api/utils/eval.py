@@ -4,7 +4,7 @@ import json
 import requests
 import mimetypes
 import google.generativeai as genai
-from load_creds import load_creds
+from .load_creds import load_creds
 from io import BytesIO
 from pdfminer.high_level import extract_text
 from docx import Document
