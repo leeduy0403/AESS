@@ -131,11 +131,12 @@ def evaluate_submissions(data, output_json_path=None):
 
             results.append({
                 "submission_id": submission_id,
-                "score": score,
+                "ovr": coherence + lexical + grammar,
+                "scores": [coherence, lexical, grammar],
                 "components": {
-                    "Coherence and Cohesion": coherence,
-                    "Lexical Resource": lexical,
-                    "Grammatical Range and Accuracy": grammar
+                    "Coherence and Cohesion",
+                    "Lexical Resource",
+                    "Grammatical Range and Accuracy",
                 },
                 "feedback": feedback
             })
