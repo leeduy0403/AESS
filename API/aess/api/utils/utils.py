@@ -7,6 +7,6 @@ def genScoreResponse(request):
 	data = json.loads(request.body)
 	try:
 		response = evaluate_submissions(data=data)
-		return Response(json.dumps(response), status=status.HTTP_200_OK)
+		return Response(response, status=status.HTTP_200_OK)
 	except Exception as e:
 		return Response(json.dumps({"error": str(e)}), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
