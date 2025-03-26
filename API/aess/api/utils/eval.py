@@ -99,8 +99,8 @@ def evaluate_submissions(data, output_json_path=None):
     
     results = []
     
-    description_content = "\n".join([load_file_content(url) for entry in data.get("description", []) for url in entry.get("description_urls", [])])
-    rubric_content = "\n".join([load_file_content(url) for entry in data.get("rubrics", []) for url in entry.get("rubric_urls", [])])
+    description_content = "\n".join([load_file_content(url) for url in data.get("descriptions", [])])
+    rubric_content = "\n".join([load_file_content(url) for url in data.get("rubrics", [])])
     
     for submission in data.get("submissions", []):
         submission_id = submission["submission_id"]
