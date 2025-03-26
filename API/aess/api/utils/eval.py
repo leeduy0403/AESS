@@ -99,8 +99,12 @@ def evaluate_submissions(data, output_json_path=None):
     
     results = []
     
-    description_content = "\n".join([load_file_content(url) for url in data.get("descriptions", [])])
-    rubric_content = "\n".join([load_file_content(url) for url in data.get("rubrics", [])])
+    description_content = "\n".join([load_file_content(url) for url in data.get("descriptions", [])]).replace("\n", " ")
+    rubric_content = "\n".join([load_file_content(url) for url in data.get("rubrics", [])]).replace("\n", " ")
+    
+    print({description_content})
+    print("--------------------")
+    print({rubric_content})
     
     for submission in data.get("submissions", []):
         submission_id = submission["submission_id"]
@@ -153,6 +157,8 @@ def evaluate_submissions(data, output_json_path=None):
                 "feedback": "Error processing submission."
             })
     
+    print("--------------------")
+    print(prompt)
     print(f"Evaluation complete. Results saved")
     return {"results": results}
     
