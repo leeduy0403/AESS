@@ -39,6 +39,16 @@ def extract_pdf_text(file_stream):
         return extract_text(file_stream)
     except Exception as e:
         return f"Error extracting PDF: {e}"
+    
+def extract_score_range(description_text):
+    """Extracts the valid score range from the DESCRIPTION text."""
+    match = re.search(r"Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
+    if match:
+        min_score, max_score = map(int, match.groups())
+    else:
+        min_score, max_score = 0, 6  # Default range if not found
+    print(f"min_score: {min_score}, max_score: {max_score}")
+    return min_score, max_score
 
 genai.configure(credentials=load_creds())
 
@@ -60,38 +70,41 @@ def clean_feedback(feedback):
     feedback = re.sub(r"(?<!\s)\d+", "", feedback)
     return feedback.strip()
 
-def extract_scores_and_feedback(response_text):
-    """ Extracts overall score, component scores, and cleans feedback """
-    score, coherence, lexical, grammar = 0, 0, 0, 0
-    feedback = []
-    
+def extract_score_and_feedback(response_text, min_score, max_score):
+    """Extracts only the overall score & feedback."""
+    score, feedback = min_score, ""
+    coherence, lexical, grammar = min_score, min_score, min_score
+
     lines = response_text.strip().split("\n")
-    
+
     for line in lines:
         line = line.strip()
         if line.lower().startswith("score:"):
-            match = re.search(r"\b[1-6]\b", line)
+            match = re.search(r"\d+", line)
             if match:
-                score = int(match.group(0))
-        elif line.lower().startswith("coherence and cohesion:"):
-            match = re.search(r"\b[0-2]\b", line)
+                score = min(max_score, max(min_score, int(match.group(0)))) # Ensure valid range
+        if line.lower().startswith("coherence and cohesion:"):
+            match = re.search(r"\d+", line)
             if match:
-                coherence = int(match.group(0))
+                coherence = min(max_score, max(min_score, int(match.group(0))))  # Ensure valid range
         elif line.lower().startswith("lexical resource:"):
-            match = re.search(r"\b[0-2]\b", line)
+            match = re.search(r"\d+", line)
             if match:
-                lexical = int(match.group(0))
+                lexical = min(max_score, max(min_score, int(match.group(0))))
         elif line.lower().startswith("grammatical range and accuracy:"):
-            match = re.search(r"\b[0-2]\b", line)
+            match = re.search(r"\d+", line)
             if match:
-                grammar = int(match.group(0))
+                grammar = min(max_score, max(min_score, int(match.group(0))))
         elif line.lower().startswith("feedback:"):
-            feedback.append(line[len("Feedback:"):].strip())
-        elif feedback:
-            feedback.append(line.strip())
-    
-    feedback_text = clean_feedback(" ".join(feedback))
-    return score, coherence, lexical, grammar, feedback_text
+            feedback = line[len("Feedback:"):].strip()
+
+    feedback = clean_feedback(feedback)
+
+    # if score != round((coherence + lexical + grammar) / 3):
+    #     score = round((coherence + lexical + grammar) / 3)
+
+    return score, [coherence, lexical, grammar], feedback
+
 
 def evaluate_submissions(input_json_path, output_json_path):
     with open(input_json_path, 'r', encoding='utf-8') as f:
@@ -100,7 +113,8 @@ def evaluate_submissions(input_json_path, output_json_path):
     results = []
     
     description_content = "\n".join([load_file_content(url) for entry in data.get("description", []) for url in entry.get("description_urls", [])])
-    rubric_content = "\n".join([load_file_content(url) for entry in data.get("rubrics", []) for url in entry.get("rubric_urls", [])])
+    min_score, max_score = extract_score_range(description_content)
+    # rubric_content = "\n".join([load_file_content(url) for entry in data.get("rubrics", []) for url in entry.get("rubric_urls", [])])
     
     for submission in data.get("submissions", []):
         submission_id = submission["submission_id"]
@@ -112,30 +126,36 @@ def evaluate_submissions(input_json_path, output_json_path):
         try:
             prompt = (
                 f"DESCRIPTION: {description_content}\n"
-                f"RUBRIC: {rubric_content}\n"
                 f"CONTENT: {submission_content}\n\n"
-                f"PROMPT: Provide an evaluation of the given CONTENT based on the DESCRIPTION and RUBRIC. "
-                f"Your response should follow this format exactly:\n\n"
-                f"Score: (a single number from 1 to 6)\n"
-                f"Coherence and Cohesion: (a single number from 0 to 2)\n"
-                f"Lexical Resource: (a single number from 0 to 2)\n"
-                f"Grammatical Range and Accuracy: (a single number from 0 to 2)\n"
-                f"Feedback: (A clear and concise textual feedback, without any embedded numbers or scores.)"
+                f"PROMPT: Evaluate the given CONTENT based on the DESCRIPTION. "
+                f"Follow the exact format below in your response:\n\n"
+                f"Score: (a number from {min_score}-{max_score} and is the average number of component scores)\n"
+                f"Coherence and Cohesion: (a number from {min_score}-{max_score})\n"
+                f"Lexical Resource: (a number from {min_score}-{max_score})\n"
+                f"Grammatical Range and Accuracy: (a number from {min_score}-{max_score})\n"
+                f"Feedback: (Provide clear and concise feedback without including any numbers or scores.)"
+
+                f"Example:\n"
+                f"Score: 9\n"
+                f"Coherence and Cohesion: 8 \n"
+                f"Lexical Resource: 9 \n"
+                f"Grammatical Range and Accuracy: 10 \n"
+                f"Feedback: The essay presents clear arguments and a strong structure. To enhance clarity, focus on smoother transitions and more precise word choices.\n\n"
             )
 
             response = model.generate_content(prompt)
             response_text = response.text.strip()
 
-            score, coherence, lexical, grammar, feedback = extract_scores_and_feedback(response_text)
-            score = max(1, min(6, coherence + lexical + grammar))  # Ensure score validity
+            score, scores, feedback = extract_score_and_feedback(response_text, min_score, max_score)
 
             results.append({
                 "submission_id": submission_id,
                 "score": score,
+                "scores": scores,   # array of component scores
                 "components": {
-                    "Coherence and Cohesion": coherence,
-                    "Lexical Resource": lexical,
-                    "Grammatical Range and Accuracy": grammar
+                    "Coherence and Cohesion",
+                    "Lexical Resource",
+                    "Grammatical Range and Accuracy"
                 },
                 "feedback": feedback
             })
@@ -143,13 +163,14 @@ def evaluate_submissions(input_json_path, output_json_path):
             print(f"Error processing submission_id {submission_id}: {e}")
             results.append({
                 "submission_id": submission_id,
-                "score": 0,
+                "score": min_score,
+                "scores": [min_score, min_score, min_score],   # array of component scores
                 "components": {
-                    "Coherence and Cohesion": 0,
-                    "Lexical Resource": 0,
-                    "Grammatical Range and Accuracy": 0
+                    "Coherence and Cohesion",
+                    "Lexical Resource",
+                    "Grammatical Range and Accuracy"
                 },
-                "feedback": "Error processing submission."
+                "feedback": feedback
             })
     
     print(f"Evaluation complete. Results saved")

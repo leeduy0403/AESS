@@ -5,3 +5,4 @@ google-auth-oauthlib
 google-generativeai
 pdfminer.six
 python-docx
+faiss-cpu
