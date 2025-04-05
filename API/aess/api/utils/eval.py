@@ -106,10 +106,10 @@ def extract_score_and_feedback(response_text, min_score, max_score):
     return score, [coherence, lexical, grammar], feedback
 
 
-def evaluate_submissions(input_json_path, output_json_path):
-    with open(input_json_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-
+def evaluate_submissions(data, output_json_path=None):
+    # with open(input_json_path, 'r', encoding='utf-8') as f:
+    #     data = json.load(f)
+    
     results = []
     
     description_content = "\n".join([load_file_content(url) for entry in data.get("description", []) for url in entry.get("description_urls", [])])
@@ -173,6 +173,8 @@ def evaluate_submissions(input_json_path, output_json_path):
                 "feedback": feedback
             })
     
+    print("--------------------")
+    print(prompt)
     print(f"Evaluation complete. Results saved")
     return {"results": results}
     
