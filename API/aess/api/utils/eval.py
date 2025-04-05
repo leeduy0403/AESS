@@ -112,7 +112,8 @@ def evaluate_submissions(data, output_json_path=None):
     
     results = []
     
-    description_content = "\n".join([load_file_content(url) for entry in data.get("description", []) for url in entry.get("description_urls", [])])
+    description_urls = data.get("descriptions", [])
+    description_content = "\n".join([load_file_content(url) for url in description_urls])
     min_score, max_score = extract_score_range(description_content)
     # rubric_content = "\n".join([load_file_content(url) for entry in data.get("rubrics", []) for url in entry.get("rubric_urls", [])])
     
@@ -129,7 +130,7 @@ def evaluate_submissions(data, output_json_path=None):
                 f"CONTENT: {submission_content}\n\n"
                 f"PROMPT: Evaluate the given CONTENT based on the DESCRIPTION. "
                 f"Follow the exact format below in your response:\n\n"
-                f"Score: (a number from {min_score}-{max_score} and is the average number of component scores)\n"
+                f"Score: (a number from {min_score}-{max_score})\n"
                 f"Coherence and Cohesion: (a number from {min_score}-{max_score})\n"
                 f"Lexical Resource: (a number from {min_score}-{max_score})\n"
                 f"Grammatical Range and Accuracy: (a number from {min_score}-{max_score})\n"
@@ -152,11 +153,11 @@ def evaluate_submissions(data, output_json_path=None):
                 "submission_id": submission_id,
                 "ovr": score,
                 "scores": scores,   # array of component scores
-                "components": {
+                "components": [
                     "Coherence and Cohesion",
                     "Lexical Resource",
                     "Grammatical Range and Accuracy"
-                },
+                ],
                 "feedback": feedback
             })
         except Exception as e:
@@ -165,11 +166,11 @@ def evaluate_submissions(data, output_json_path=None):
                 "submission_id": submission_id,
                 "ovr": min_score,
                 "scores": [min_score, min_score, min_score],   # array of component scores
-                "components": {
+                "components": [
                     "Coherence and Cohesion",
                     "Lexical Resource",
                     "Grammatical Range and Accuracy"
-                },
+                ],
                 "feedback": feedback
             })
     
