@@ -150,7 +150,7 @@ def evaluate_submissions(data, output_json_path=None):
 
             results.append({
                 "submission_id": submission_id,
-                "score": score,
+                "ovr": score,
                 "scores": scores,   # array of component scores
                 "components": {
                     "Coherence and Cohesion",
@@ -163,7 +163,7 @@ def evaluate_submissions(data, output_json_path=None):
             print(f"Error processing submission_id {submission_id}: {e}")
             results.append({
                 "submission_id": submission_id,
-                "score": min_score,
+                "ovr": min_score,
                 "scores": [min_score, min_score, min_score],   # array of component scores
                 "components": {
                     "Coherence and Cohesion",
