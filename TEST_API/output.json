@@ -1,84 +1,754 @@
 {
     "results": [
         {
-            "submission_id": "67c548d9ca0120b87a324b6a",
-            "response": "Score: 2\nCoherence and Cohesion: 1\nLexical Resource: 0\nGrammatical Range and Accuracy: 0\nFeedback: The letter attempts to address the prompt by expressing an opinion on computer use, but it struggles significantly. The ideas are presented in a disorganized manner, with repetitive phrasing and a lack of clear transitions. The heavy use of placeholders (@ORGANIZATION1, @CAPS6, etc.) and nonsensical phrases severely hinders understanding. The writing exhibits very limited vocabulary and numerous grammatical errors, including incorrect sentence structure, punctuation, and spelling. The persuasive element is weak due to the lack of coherent arguments and supporting details."
+            "submission_id": "67f149f1e967127a50aa9ba5",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "This response demonstrates a clear position on the effects of computers and offers some support for its argument."
         },
         {
-            "submission_id": "67c548e4ca0120b87a324b6e",
-            "response": "Score: 2\nCoherence and Cohesion: 1\nLexical Resource: 0\nGrammatical Range and Accuracy: 0\nFeedback: The response attempts to address the prompt, stating an opinion and providing some supporting reasons. However, the ideas are poorly organized and often unclear. The writing lacks transitions and connections between ideas, making it difficult to follow the argument. The response is significantly hampered by pervasive errors in spelling, grammar, and sentence structure. Many words are misspelled or used incorrectly, and there are numerous run-on sentences and fragments. Basic punctuation is often missing or misused. The intended meaning is frequently obscured by these errors."
+            "submission_id": "67f149fce967127a50aa9bc9",
+            "ovr": 3,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay is organized into paragraphs and contains some specific details, but it is not consistently"
         },
         {
-            "submission_id": "67c548f0ca0120b87a324b72",
-            "response": "Here's an evaluation of the provided content:\n\nScore: 2\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\n\nFeedback: The letter presents a clear opinion, but the arguments are underdeveloped and often illogical (e.g., computers strengthen hand muscles). The response lacks organization; ideas are presented in a stream-of-consciousness style rather than structured paragraphs. The language is very basic and repetitive (\"health\" instead of \"healthy,\" \"stuff\"). There are numerous grammatical errors, including sentence fragments, incorrect word usage, and lack of punctuation, which significantly impede understanding. The response doesn't acknowledge or address the opposing viewpoint presented in the prompt. The persuasive element is weak, relying on personal belief rather than evidence or reasoned argument."
+            "submission_id": "67f14a03e967127a50aa9bed",
+            "ovr": 6,
+            "scores": [
+                5,
+                5,
+                5
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "This essay is well-organized and clearly presents its argument. The writer develops each point with specific examples."
         },
         {
-            "submission_id": "67c548fdca0120b87a324b76",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\n\nFeedback: The letter presents a clear stance in favor of computers, but the arguments are somewhat disorganized and repetitive. The writing uses informal language (\"You'd be hopeless,\" \"boring ad book\") and contains many instances of unconventional capitalization (\"@CAPS1!\", \"netrekker,\" \"@LOCATION1\"), run-on sentences, and grammatical errors. While the letter attempts to address counterarguments, it does so superficially. The overall structure is present (introduction, body paragraphs, conclusion), but the execution lacks polish and sophistication. The overuse of conversational phrases and rhetorical questions detracts from the persuasive power. The vocabulary is simplistic, and sentence structures are repetitive. Numerous spelling and grammatical errors impede understanding."
+            "submission_id": "67f14a0de967127a50aa9c11",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay demonstrates a basic understanding of the task and presents some reasons for the benefits of computers, but the ideas are not well-developed."
         },
         {
-            "submission_id": "67c54913ca0120b87a324b7a",
-            "response": "Score: 2\nCoherence and Cohesion: 0\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\nFeedback: The letter attempts to address the prompt by arguing against computer use, but it fails to do so effectively. The arguments are poorly developed, disorganized, and filled with irrelevant details and nonsensical placeholders (e.g., \"@NUM2 inches,\" \"@CAPS1\"). The numerous spelling and grammatical errors severely hinder comprehension. The writing lacks coherence and cohesion, making it difficult to follow the intended line of reasoning. The vocabulary is very basic and repetitive, and the sentence structures are simplistic and often incorrect. The persuasive element is weak and unconvincing. The overall impression is that of a very low level of writing proficiency."
+            "submission_id": "67f14a12e967127a50aa9c16",
+            "ovr": 3,
+            "scores": [
+                3,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "This essay attempts to address all three points in the prompt, but it lacks adequate development."
         },
         {
-            "submission_id": "67c54924ca0120b87a324bae",
-            "response": "Score: 2\nCoherence and Cohesion: 0\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\nFeedback: The letter presents a clear opinion in favor of computers, but it lacks organization and coherence. The ideas are jumbled and presented in a stream-of-consciousness style, making it difficult to follow the argument. There are significant issues with sentence structure, punctuation, and spelling, which severely hinder comprehension. The arguments presented, while valid, are not developed or supported effectively. The letter does not demonstrate paragraphing and reads as one long, run-on sentence, and the persuasive elements are very weak. The tone is informal and not entirely appropriate for a letter to a newspaper."
+            "submission_id": "67f14a1fe967127a50aa9c3a",
+            "ovr": 5,
+            "scores": [
+                4,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and develops it with a number of reasons."
         },
         {
-            "submission_id": "67c5492dca0120b87a324bb2",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 1\nFeedback: The letter presents a clear opinion against excessive computer use, but the arguments lack development and sophistication. The organization is present (introduction, body paragraphs, conclusion), but the ideas within each paragraph are repetitive and often rely on generalizations and weak examples (e.g., \"bad things,\" \"ridiculous websites\"). The transitions are basic (\"Lastly,\" \"Also\"). The letter uses placeholders (@ORGANIZATION1, @PERCENT1, etc.) which, while understandable in a draft, significantly detract from the persuasive power and credibility. The arguments are simplistic and lack the depth expected. The vocabulary is repetitive and basic, with frequent use of words like \"bad,\" \"ridiculous,\" and \"nice.\" Grammatical errors are frequent, including sentence structure problems, incorrect verb tenses, and spelling mistakes. The tone is somewhat conversational but lacks the formality expected in a letter to a newspaper."
+            "submission_id": "67f14a24e967127a50aa9c3f",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and provides support for it, but the structure is somewhat disjointed and the"
         },
         {
-            "submission_id": "67c54938ca0120b87a324bb6",
-            "response": "Score: 4\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 1\nFeedback: The letter presents a clear opinion, but the arguments are somewhat disorganized and underdeveloped. While it attempts to address both sides, the counter-arguments are weak and easily dismissed. The use of invented quotes and names (@PERSON1, @ORGANIZATION1, etc.) detracts from the credibility, and the organization jumps between ideas. The vocabulary is generally appropriate but lacks precision and variety in places. Grammatical errors, such as incorrect verb tenses (\"Every since I was, ten years old\"), run-on sentences, and awkward phrasing (\"athleticisniry,\" \"we can't socialize with as if\"), hinder clarity. The conclusion is missing, leaving the letter feeling incomplete. The attempt to counter the opposing viewpoint is very weak, and the letter would benefit from more robust counter-argument refutation. The constant use of capitalized placeholder words is also distracting."
+            "submission_id": "67f14a29e967127a50aa9c44",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position, but the organization is somewhat disjointed."
         },
         {
-            "submission_id": "67c54942ca0120b87a324bba",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\nFeedback: The letter presents a clear stance against excessive computer use, but the arguments are poorly organized and often repetitive. The response demonstrates some awareness of the task, but with significant flaws. There is little cohesion between sentences and paragraphs, making the arguments difficult to follow. The writing uses basic vocabulary, often incorrectly or inappropriately (@MONTH1, @CAPS1, @CAPS2, @CAPS3, \"deceded\"). Grammatical errors are frequent and severe, significantly hindering comprehension throughout the entire response. There are pervasive issues with sentence structure, verb tense, punctuation, and spelling. The response attempts to address the prompt but does so in a very limited and error-ridden way."
+            "submission_id": "67f14a2ee967127a50aa9c49",
+            "ovr": 4,
+            "scores": [
+                4,
+                4,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
         },
         {
-            "submission_id": "67c5494cca0120b87a324bbe",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 1\nFeedback: The letter presents a clear opinion against computers, but the arguments are somewhat disorganized and repetitive, particularly regarding cyberbullying. The connection between computers and childhood obesity, while mentioned, lacks strong supporting evidence.\u00a0 The writing uses some basic cohesive devices (e.g., \"Not only that,\" \"but\"), but the overall structure could be improved with clearer topic sentences and transitions.\u00a0 The vocabulary is simple and repetitive, with limited use of persuasive language. Grammatical errors are present, including spelling (obeasity, bulling, their/they're), capitalization (@CAPS tags), and number representation (@NUM tags, @LOCATION1). The tone is somewhat appropriate for a letter to the editor, but the final sentence is overly dramatic. The letter attempts to persuade but lacks the development and sophistication needed for a higher score."
+            "submission_id": "67f14a32e967127a50aa9c4e",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay has a clear position, but it lacks organization.  The is"
         },
         {
-            "submission_id": "67c54963ca0120b87a324bf2",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 1\nFeedback: The letter presents a clear opinion, but the arguments are simplistic and repetitive. The organization is present but basic, with a lack of transitions and a reliance on listing. The vocabulary is limited and repetitive, with frequent use of simple words and phrases. Grammatical errors are present, including incorrect capitalization, punctuation, and sentence structure. The overuse of \"@CAPS1\" and similar placeholders significantly detracts from the clarity and flow. The response only partially fulfills the requirements of the prompt."
+            "submission_id": "67f14a36e967127a50aa9c53",
+            "ovr": 1,
+            "scores": [
+                1,
+                1,
+                1
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The response is very short and does not develop any ideas."
         },
         {
-            "submission_id": "67c54970ca0120b87a324bf6",
-            "response": "Score: 2\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\nFeedback: The letter presents a clear, albeit somewhat simplistic, opinion on the negative effects of computer use. However, the arguments are repetitive and lack strong supporting evidence. The organization is weak, with ideas presented in a stream-of-consciousness style rather than a logical progression. There's limited use of cohesive devices. The vocabulary is basic and repetitive, with frequent informal language (\"stuff,\" \"laydys\"). Grammar is consistently poor, with numerous errors in spelling (@CAPS1, \"allways,\" \"insted\"), capitalization, punctuation, and sentence structure. The writing lacks sentence variety and relies heavily on simple sentences and conjunctions. The response attempts to address the prompt but struggles significantly with expressing ideas in a clear, organized, and grammatically correct manner."
+            "submission_id": "67f14a3ae967127a50aa9c58",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay shows a clear position and provides adequate support for that position."
         },
         {
-            "submission_id": "67c5497cca0120b87a324bfa",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\n\nFeedback: The letter presents a clear stance in favor of computers, offering three main supporting reasons: communication, research, and typing. However, the organization and development of these ideas are weak. The writing contains numerous grammatical errors, misspellings, and awkward phrasing, significantly hindering clarity. The arguments, while relevant, lack depth and specific examples. The tone is informal and conversational, which is acceptable for a letter to the editor, but the execution is poor due to the pervasive errors. The attempt to personalize the letter is present, but the integration of personal anecdotes is clumsy. The response attempts to address the prompt, but fails to be persuasive."
+            "submission_id": "67f14a40e967127a50aa9c5d",
+            "ovr": 3,
+            "scores": [
+                3,
+                2,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
         },
         {
-            "submission_id": "67c5498cca0120b87a324bfe",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\n\nFeedback: The letter expresses a clear opinion against excessive computer use, aligning with the prompt's requirement. However, the argument lacks development and supporting evidence beyond personal opinion and a single game example. The organization is weak, with ideas presented in a somewhat rambling manner. There are numerous spelling and grammatical errors (@CAPS1, @ORGANIZATION1, \"miderth,\" \"mon ster,\" \"funner,\" \"thier,\" etc.), significantly hindering clarity. The vocabulary is basic and repetitive, and sentence structures are simple and often incorrect. The persuasive element is present but not effectively executed due to the aforementioned issues."
+            "submission_id": "67f14a44e967127a50aa9c62",
+            "ovr": 6,
+            "scores": [
+                6,
+                6,
+                5
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "This essay is well-organized and well-written.  The ideas are fully developed and supported with specific examples."
         },
         {
-            "submission_id": "67c54997ca0120b87a324c02",
-            "response": "Score: 2\nCoherence and Cohesion: 1\nLexical Resource: 0\nGrammatical Range and Accuracy: 0\nFeedback: The letter expresses a clear opinion against the overuse of computers, but the arguments are poorly developed and lack supporting evidence. The organization is weak, with ideas presented in a somewhat rambling and repetitive manner. There's little attempt to address counterarguments or persuade readers beyond stating a personal preference. The writing contains numerous spelling and grammatical errors, along with informal language and placeholders (@CAPS1, @MONTH1, etc.) that significantly detract from the overall quality and clarity. The vocabulary is very basic and repetitive."
+            "submission_id": "67f14a49e967127a50aa9c67",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
         },
         {
-            "submission_id": "67c549a1ca0120b87a324c06",
-            "response": "Score: 4\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 1\nFeedback: The letter presents a clear opinion and provides supporting arguments, fulfilling the basic requirements of the prompt. However, the organization could be improved. The arguments, while valid, are somewhat listed rather than developed in a cohesive flow. Transitions between paragraphs are present but basic (\"First,\" \"Lastly\"). The conclusion summarizes the main points but doesn't offer a strong, persuasive closing statement. The vocabulary is generally appropriate but lacks sophistication and variety. Repetitive use of phrases like \"I think\" and \"helpful\" diminishes the persuasive impact. Grammatical errors are present, including sentence structure issues (\"This is becaus if you think about it\"), incorrect verb tense, and awkward phrasing. The letter demonstrates an understanding of the task but needs further development in organization, vocabulary, and grammatical accuracy to achieve a higher score. The use of placeholders (@CAPS1, @CAPS2, etc.) is appropriate given the prompt's context."
+            "submission_id": "67f14a50e967127a50aa9c6c",
+            "ovr": 3,
+            "scores": [
+                3,
+                3,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
         },
         {
-            "submission_id": "67c549abca0120b87a324c0a",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\nFeedback: The letter presents a clear opinion, but the arguments are somewhat disorganized and repetitive. The writer acknowledges the benefits of computers but focuses primarily on the negative aspects of overuse. While there's an attempt to persuade, the arguments lack depth and specific examples. The frequent use of informal language (\"everone,\" \"tak[ing] away from,\" \"deffintly,\" \"agreat inveshion\") and conversational tone (\"Sure they are fun, and sure their very usefull\") detracts from the persuasive power. Numerous spelling and grammatical errors (\"aboose,\" \"privilage,\" \"reserech,\" \"befit,\" \"kemp,\" \"enter-net,\" \"cumputers,\" \"their,\" \"to,\" \"then\") significantly hinder readability and comprehension. The structure is somewhat present (introduction, body, conclusion), but the ideas within paragraphs are not always logically connected. The placeholders (@MONTH1, @NUM1) also disrupt the flow."
+            "submission_id": "67f14a58e967127a50aa9c71",
+            "ovr": 5,
+            "scores": [
+                5,
+                4,
+                4
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay successfully argues for the benefits of computers, using a variety of examples and a clear organizational structure."
         },
         {
-            "submission_id": "67c549b5ca0120b87a324c0e",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 0\nFeedback: The letter presents a clear opinion, but the supporting arguments are poorly developed and lack specific evidence. The organization is present but simplistic, with repetitive sentence structures and ideas. The language is basic and contains numerous spelling and grammatical errors, significantly hindering clarity. The placeholders (@NUM1, @CAPS1, etc.) demonstrate a lack of concrete examples and research. While the letter attempts to persuade, the weak arguments and numerous errors make it unconvincing."
+            "submission_id": "67f14a60e967127a50aa9c76",
+            "ovr": 4,
+            "scores": [
+                4,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and develops it with reasons and examples. The organization is generally strong and the writer uses some transitional words"
         },
         {
-            "submission_id": "67c549c0ca0120b87a324c12",
-            "response": "Score: 3\nCoherence and Cohesion: 1\nLexical Resource: 1\nGrammatical Range and Accuracy: 1\nFeedback: The letter presents a clear opinion against computer use, but the arguments are not well-developed and lack strong supporting evidence. The use of placeholders (e.g., @LOCATION1, @PERSON2, @MONEY1) significantly detracts from the credibility and persuasiveness of the letter. The organization is present, with distinct paragraphs for each point, but the reasoning within each paragraph is often weak or illogical. The language is repetitive and simplistic, and there are noticeable grammatical errors and awkward phrasing throughout the text. The letter attempts to persuade but fails to do so effectively due to the lack of concrete examples and credible sources. The persona of a concerned citizen writing to a newspaper is maintained, but the arguments would not be convincing to a discerning reader."
+            "submission_id": "67f14a68e967127a50aa9c7b",
+            "ovr": 4,
+            "scores": [
+                4,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The student provides a clear position and develops the argument with some specific details. The essay is organized and uses some transitional language."
         },
         {
-            "submission_id": "67c549ccca0120b87a324c16",
-            "response": "Score: 2\nCoherence and Cohesion: 1\nLexical Resource: 0\nGrammatical Range and Accuracy: 0\nFeedback: The letter presents a clear opinion, but the supporting arguments are underdeveloped and repetitive. The organization is weak, with ideas presented in a somewhat disorganized manner. The use of placeholders like \"@CAPS\" and \"@NUM\" significantly disrupts the flow and meaning. The vocabulary is extremely limited and repetitive, and there are numerous grammatical errors, including sentence structure, spelling, and punctuation. The writing does not demonstrate control of basic sentence construction or grammar, making it difficult to understand."
+            "submission_id": "67f14a6ee967127a50aa9c80",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
+        },
+        {
+            "submission_id": "67f14b02e967127a50aa9ca6",
+            "ovr": 4,
+            "scores": [
+                4,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay is organized with a clear thesis statement and supporting paragraphs.  The"
+        },
+        {
+            "submission_id": "67f14b08e967127a50aa9cab",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear argument and reasons to support its position. However, the essay's organization is inconsistent and its use of"
+        },
+        {
+            "submission_id": "67f14b0ee967127a50aa9cb0",
+            "ovr": 3,
+            "scores": [
+                3,
+                3,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
+        },
+        {
+            "submission_id": "67f14b14e967127a50aa9cb5",
+            "ovr": 5,
+            "scores": [
+                4,
+                4,
+                4
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay is well-organized, but some sentences are awkward and"
+        },
+        {
+            "submission_id": "67f14b1ae967127a50aa9cba",
+            "ovr": 4,
+            "scores": [
+                4,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and provides some good supporting reasons."
+        },
+        {
+            "submission_id": "67f14b20e967127a50aa9cbf",
+            "ovr": 6,
+            "scores": [
+                6,
+                6,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "This essay is well-organized and expresses a clear stance."
+        },
+        {
+            "submission_id": "67f14b26e967127a50aa9cc4",
+            "ovr": 4,
+            "scores": [
+                3,
+                4,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and provides some supporting details. It is organized, but it could be more cohesive and fluent."
+        },
+        {
+            "submission_id": "67f14b2ce967127a50aa9cc9",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay"
+        },
+        {
+            "submission_id": "67f14b33e967127a50aa9cce",
+            "ovr": 2,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The response is very disorganized and has numerous grammatical errors."
+        },
+        {
+            "submission_id": "67f14b3be967127a50aa9cd3",
+            "ovr": 3,
+            "scores": [
+                2,
+                3,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
+        },
+        {
+            "submission_id": "67f14b40e967127a50aa9cd8",
+            "ovr": 4,
+            "scores": [
+                4,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear argument and provides some support, but it is not always well-organized and"
+        },
+        {
+            "submission_id": "67f14b46e967127a50aa9cdd",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
+        },
+        {
+            "submission_id": "67f14b4be967127a50aa9ce2",
+            "ovr": 4,
+            "scores": [
+                4,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents clear arguments and develops them adequately. Therd paragraph is slightly less developed than the first."
+        },
+        {
+            "submission_id": "67f14b54e967127a50aa9ce7",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and provides adequate support for its argument.  The essay is generally organized and includes some transitional language."
+        },
+        {
+            "submission_id": "67f14b5ee967127a50aa9cec",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "This response is underdeveloped and only minimally persuasive. The writer has a clear position, but the ideas are not fully developed or organized."
+        },
+        {
+            "submission_id": "67f14b63e967127a50aa9cf1",
+            "ovr": 5,
+            "scores": [
+                4,
+                4,
+                4
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear argument with strong points, of which are well-developed."
+        },
+        {
+            "submission_id": "67f14b6ae967127a50aa9cf6",
+            "ovr": 3,
+            "scores": [
+                3,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The response provides some reasons for its stance but the essay is not well-organized and contains a number of grammatical errors."
+        },
+        {
+            "submission_id": "67f14b73e967127a50aa9cfb",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay attempts to provide reasons for its position, but the ideas are not clearly developed.  The writer uses some"
+        },
+        {
+            "submission_id": "67f14b79e967127a50aa9d00",
+            "ovr": 2,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay is very difficult to understand.  The ideas are not organized and the language is very basic."
+        },
+        {
+            "submission_id": "67f14b81e967127a50aa9d05",
+            "ovr": 5,
+            "scores": [
+                4,
+                4,
+                4
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a strong argument with adequate support,"
+        },
+        {
+            "submission_id": "67f14b87e967127a50aa9d0a",
+            "ovr": 4,
+            "scores": [
+                3,
+                4,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
+        },
+        {
+            "submission_id": "67f14b8de967127a50aa9d0f",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and provides adequate support. However, the organization is somewhat disjointed and the writing is awkward in parts."
+        },
+        {
+            "submission_id": "67f14b93e967127a50aa9d14",
+            "ovr": 4,
+            "scores": [
+                4,
+                4,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay presents a clear position and provides adequate support. The essay is well organized and contains a mix of general and specific details."
+        },
+        {
+            "submission_id": "67f14b98e967127a50aa9d19",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The response demonstrates some awareness of the audience and a clear position. However, the organization is weak and the ideas are not fully developed."
+        },
+        {
+            "submission_id": "67f14b9fe967127a50aa9d1e",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay has a clear position, but it is not well-developed. The ideas are not fully explained."
+        },
+        {
+            "submission_id": "67f14ba4e967127a50aa9d23",
+            "ovr": 4,
+            "scores": [
+                3,
+                3,
+                3
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay has a clear position and reasons that support it, but therd reason is not very well developed. The essay uses some transitions, but it could be more fluent."
+        },
+        {
+            "submission_id": "67f14baae967127a50aa9d28",
+            "ovr": 2,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The ideas are not organized very well and the writing is not fluent."
+        },
+        {
+            "submission_id": "67f14bafe967127a50aa9d2d",
+            "ovr": 3,
+            "scores": [
+                3,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay is organized and shows some awareness of audience, but the reasons are not fully elaborated and the details are not specific."
+        },
+        {
+            "submission_id": "67f14bb4e967127a50aa9d32",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                6
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": ""
+        },
+        {
+            "submission_id": "67f14bb9e967127a50aa9d37",
+            "ovr": 3,
+            "scores": [
+                2,
+                2,
+                2
+            ],
+            "components": [
+                "Coherence and Cohesion",
+                "Lexical Resource",
+                "Grammatical Range and Accuracy"
+            ],
+            "feedback": "The essay attempts to make a point, but the arguments are not developed. The organization is not very clear, and the writing is often awkward."
         }
     ]
 }

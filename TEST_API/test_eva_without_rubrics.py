@@ -40,15 +40,35 @@ def extract_pdf_text(file_stream):
     except Exception as e:
         return f"Error extracting PDF: {e}"
     
-def extract_score_range(description_text):
-    """Extracts the valid score range from the DESCRIPTION text."""
-    match = re.search(r"Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
-    if match:
-        min_score, max_score = map(int, match.groups())
+def extract_score_ranges_and_components(description_text):
+    """Extracts score ranges and components from the DESCRIPTION text."""
+    total_score_match = re.search(r"Total\s+Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
+    comp_score_match = re.search(r"Components?\s+Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
+    components_section = re.search(r"Components:\s*(.*?)(?:\n\s*\n|\Z)", description_text, re.IGNORECASE | re.DOTALL)
+
+    if total_score_match:
+        min_total, max_total = map(int, total_score_match.groups())
     else:
-        min_score, max_score = 0, 6  # Default range if not found
-    print(f"min_score: {min_score}, max_score: {max_score}")
-    return min_score, max_score
+        min_total, max_total = 1, 6
+
+    if comp_score_match:
+        min_comp, max_comp = map(int, comp_score_match.groups())
+    else:
+        min_comp, max_comp = 1, 6
+
+    components = []
+    if components_section:
+        lines = components_section.group(1).splitlines()
+        for line in lines:
+            comp = re.sub(r"^[\s\-•\d\.o]+", "", line).strip()
+            if comp:
+                components.append(comp)
+
+    if not components:
+        components = ["Coherence and Cohesion", "Lexical Resource", "Grammatical Range and Accuracy"]
+
+    print(f"Total Score Range: {min_total}-{max_total}, Component Score Range: {min_comp}-{max_comp}, Components: {components}")
+    return (min_total, max_total), (min_comp, max_comp), components
 
 genai.configure(credentials=load_creds())
 
@@ -70,10 +90,10 @@ def clean_feedback(feedback):
     feedback = re.sub(r"(?<!\s)\d+", "", feedback)
     return feedback.strip()
 
-def extract_score_and_feedback(response_text, min_score, max_score):
-    """Extracts only the overall score & feedback."""
-    score, feedback = min_score, ""
-    coherence, lexical, grammar = min_score, min_score, min_score
+def extract_score_and_feedback(response_text, min_total, max_total, min_comp, max_comp, components):
+    """Extracts overall score, individual component scores and feedback."""
+    score, feedback = min_total, ""
+    component_scores = [min_comp] * len(components)
 
     lines = response_text.strip().split("\n")
 
@@ -82,28 +102,22 @@ def extract_score_and_feedback(response_text, min_score, max_score):
         if line.lower().startswith("score:"):
             match = re.search(r"\d+", line)
             if match:
-                score = min(max_score, max(min_score, int(match.group(0)))) # Ensure valid range
-        if line.lower().startswith("coherence and cohesion:"):
-            match = re.search(r"\d+", line)
-            if match:
-                coherence = min(max_score, max(min_score, int(match.group(0))))  # Ensure valid range
-        elif line.lower().startswith("lexical resource:"):
-            match = re.search(r"\d+", line)
-            if match:
-                lexical = min(max_score, max(min_score, int(match.group(0))))
-        elif line.lower().startswith("grammatical range and accuracy:"):
-            match = re.search(r"\d+", line)
-            if match:
-                grammar = min(max_score, max(min_score, int(match.group(0))))
-        elif line.lower().startswith("feedback:"):
+                score = min(max_total, max(min_total, int(match.group(0))))
+        for i, comp in enumerate(components):
+            if line.lower().startswith(comp.lower() + ":"):
+                match = re.search(r"\d+", line)
+                if match:
+                    component_scores[i] = min(max_comp, max(min_comp, int(match.group(0))))
+        if line.lower().startswith("feedback:"):
             feedback = line[len("Feedback:"):].strip()
 
     feedback = clean_feedback(feedback)
 
-    # if score != round((coherence + lexical + grammar) / 3):
-    #     score = round((coherence + lexical + grammar) / 3)
+    # # Ensure score is average of components
+    # avg_score = round(sum(component_scores) / len(component_scores))
+    # score = avg_score
 
-    return score, [coherence, lexical, grammar], feedback
+    return score, component_scores, feedback
 
 
 def evaluate_submissions(input_json_path, output_json_path):
@@ -115,8 +129,7 @@ def evaluate_submissions(input_json_path, output_json_path):
     description_urls = data.get("descriptions", [])
     description_content = "\n".join([load_file_content(url) for url in description_urls])
     print(f"description_content: {description_content}")
-    min_score, max_score = extract_score_range(description_content)
-    # rubric_content = "\n".join([load_file_content(url) for entry in data.get("rubrics", []) for url in entry.get("rubric_urls", [])])
+    (min_total, max_total), (min_comp, max_comp), components = extract_score_ranges_and_components(description_content)
     
     for submission in data.get("submissions", []):
         submission_id = submission["submission_id"]
@@ -129,49 +142,47 @@ def evaluate_submissions(input_json_path, output_json_path):
             prompt = (
                 f"DESCRIPTION: {description_content}\n"
                 f"CONTENT: {submission_content}\n\n"
-                f"PROMPT: Evaluate the given CONTENT based on the DESCRIPTION. "
+                f"PROMPT: Evaluate the given CONTENT based on the DESCRIPTION.\n"
                 f"Follow the exact format below in your response:\n\n"
-                f"Score: (a number from {min_score}-{max_score})\n"
-                f"Coherence and Cohesion: (a number from {min_score}-{max_score})\n"
-                f"Lexical Resource: (a number from {min_score}-{max_score})\n"
-                f"Grammatical Range and Accuracy: (a number from {min_score}-{max_score})\n"
-                f"Feedback: (Provide clear and concise feedback without including any numbers or scores.)"
+                f"Score: (a number from {min_total}-{max_total})\n"
+            )
+            for comp in components:
+                prompt += f"{comp}: (a number from {min_comp}-{max_comp})\n"
 
+            prompt += (
+                f"Feedback: (Provide clear and concise feedback without including any numbers or scores.)\n\n"
                 f"Example:\n"
-                f"Score: 9\n"
-                f"Coherence and Cohesion: 8 \n"
-                f"Lexical Resource: 9 \n"
-                f"Grammatical Range and Accuracy: 10 \n"
-                f"Feedback: The essay presents clear arguments and a strong structure. To enhance clarity, focus on smoother transitions and more precise word choices.\n\n"
+                f"Score: {min_total}\n"
+            )
+
+            for comp in components:
+                prompt += f"{comp}: {min_comp}\n"
+                
+            prompt += (
+                f"Feedback: The essay presents clear arguments and a strong structure.\n"
             )
 
             response = model.generate_content(prompt)
             response_text = response.text.strip()
 
-            score, scores, feedback = extract_score_and_feedback(response_text, min_score, max_score)
+            score, scores, feedback = extract_score_and_feedback(
+                response_text, min_total, max_total, min_comp, max_comp, components
+            )
 
             results.append({
                 "submission_id": submission_id,
                 "ovr": score,
                 "scores": scores,   # array of component scores
-                "components": [
-                    "Coherence and Cohesion",
-                    "Lexical Resource",
-                    "Grammatical Range and Accuracy"
-                ],
+                "components": components,
                 "feedback": feedback
             })
         except Exception as e:
             print(f"Error processing submission_id {submission_id}: {e}")
             results.append({
                 "submission_id": submission_id,
-                "ovr": min_score,
-                "scores": [min_score, min_score, min_score],   # array of component scores
-                "components": [
-                    "Coherence and Cohesion",
-                    "Lexical Resource",
-                    "Grammatical Range and Accuracy"
-                ],
+                "ovr": min_total,
+                "scores": [min_comp] * len(components),   # array of component scores
+                "components": components,
                 "feedback": feedback
             })
     
