@@ -1,13 +1,41 @@
 import re 
 import os
+import time
 import json
 import requests
 import mimetypes
 import google.generativeai as genai
-from .load_creds import load_creds
+# from load_creds import load_creds
+import pandas as pd
 from io import BytesIO
 from pdfminer.high_level import extract_text
 from docx import Document
+from vertexai.generative_models import GenerativeModel
+import vertexai
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Now read them from the environment
+api_key = os.getenv("API_KEY")
+credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+
+genai.configure(api_key=api_key)
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
+
+vertexai.init(project="ringed-spirit-422415-v6", location="us-central1")
+
+model = GenerativeModel(
+    # model_name="projects/147546299476/locations/us-central1/endpoints/3313124303116959744",     #smaller
+    # model_name="projects/147546299476/locations/us-central1/endpoints/7284173274550894592",
+    model_name="projects/558798320545/locations/us-central1/endpoints/6503291320411357184", 
+    generation_config={
+        "temperature": 0.3,
+        "top_p": 0.95,
+    }
+)
+
+feedback_model = genai.GenerativeModel("gemini-2.0-flash")
 
 def load_file_content(url):
     try:
@@ -39,22 +67,26 @@ def extract_pdf_text(file_stream):
         return extract_text(file_stream)
     except Exception as e:
         return f"Error extracting PDF: {e}"
-
+    
 def extract_score_ranges_and_components(description_text):
     """Extracts score ranges and components from the DESCRIPTION text."""
     total_score_match = re.search(r"Total\s+Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
+
+    # If not found, try the more general "Score range:"
+    if not total_score_match:
+        total_score_match = re.search(r"Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
     comp_score_match = re.search(r"Components?\s+Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
-    components_section = re.search(r"Components:\s*(.*?)(?:\n\s*\n|\Z)", description_text, re.IGNORECASE | re.DOTALL)
+    components_section = re.search(r"Components:\s*((?:.|\n)*?)(?=(\n[A-Z][^\n]*:|\Z))", description_text, re.IGNORECASE)
 
     if total_score_match:
         min_total, max_total = map(int, total_score_match.groups())
     else:
-        min_total, max_total = 1, 6
+        min_total, max_total = 0, 0
 
     if comp_score_match:
         min_comp, max_comp = map(int, comp_score_match.groups())
     else:
-        min_comp, max_comp = 1, 6
+        min_comp, max_comp = 0, 0
 
     components = []
     if components_section:
@@ -64,35 +96,22 @@ def extract_score_ranges_and_components(description_text):
             if comp:
                 components.append(comp)
 
-    if not components:
-        components = ["Coherence and Cohesion", "Lexical Resource", "Grammatical Range and Accuracy"]
-
     print(f"Total Score Range: {min_total}-{max_total}, Component Score Range: {min_comp}-{max_comp}, Components: {components}")
     return (min_total, max_total), (min_comp, max_comp), components
 
-genai.configure(credentials=load_creds())
-
-generation_config = {
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 40,
-    "max_output_tokens": 8192,
-    "response_mime_type": "text/plain",
-}
-
-model = genai.GenerativeModel(
-    model_name="tunedModels/aesmodeltest4-oioi4ubuqer6",
-    generation_config=generation_config,
-)
-
 def clean_feedback(feedback):
-    """ Cleans feedback by removing inline numbers and fixing abrupt endings. """
+    """Cleans feedback by removing inline numbers and fixing abrupt endings."""
+    # Remove markdown-style bold (**text** or __text__)
+    feedback = re.sub(r"(\*\*|__)(.*?)\1", r"\2", feedback)
+
+    # Remove inline numbers (like 'example1', 'point2', but not section numbers like 1. Introduction)
     feedback = re.sub(r"(?<!\s)\d+", "", feedback)
+
     return feedback.strip()
 
-def extract_score_and_feedback(response_text, min_total, max_total, min_comp, max_comp, components):
+def extract_score(response_text, min_total, max_total, min_comp, max_comp, components):
     """Extracts overall score, individual component scores and feedback."""
-    score, feedback = min_total, ""
+    score = min_total
     component_scores = [min_comp] * len(components)
 
     lines = response_text.strip().split("\n")
@@ -100,24 +119,25 @@ def extract_score_and_feedback(response_text, min_total, max_total, min_comp, ma
     for line in lines:
         line = line.strip()
         if line.lower().startswith("score:"):
-            match = re.search(r"\d+", line)
+            match = re.search(r"\d+(\.\d+)?", line)
             if match:
-                score = min(max_total, max(min_total, int(match.group(0))))
-        for i, comp in enumerate(components):
-            if line.lower().startswith(comp.lower() + ":"):
-                match = re.search(r"\d+", line)
-                if match:
-                    component_scores[i] = min(max_comp, max(min_comp, int(match.group(0))))
-        if line.lower().startswith("feedback:"):
-            feedback = line[len("Feedback:"):].strip()
+                score = min(max_total, max(min_total, float(match.group(0))))
+                # if score.is_integer():
+                #     score = int(score)
+        for comp in components:
+            pattern = re.compile(rf"{re.escape(comp)}\s*:\s*(\d+(\.\d+)?)", re.IGNORECASE)
+            match = pattern.search(response_text)
+            if match:
+                score_val = float(match.group(1))
+                if score_val.is_integer():
+                    score_val = int(score_val)
+                component_scores[components.index(comp)] = min(max_comp, max(min_comp, score_val))
 
-    feedback = clean_feedback(feedback)
-
-    # # Ensure score is average of components
+    # Ensure score is average of components
     # avg_score = round(sum(component_scores) / len(component_scores))
     # score = avg_score
 
-    return score, component_scores, feedback
+    return score, component_scores
 
 
 def evaluate_submissions(data, output_json_path=None):
@@ -139,36 +159,61 @@ def evaluate_submissions(data, output_json_path=None):
         submission_content = "\n".join(submission_texts)
         
         try:
+            # Scoring prompt
             prompt = (
+                f"Evaluate the given CONTENT based on the DESCRIPTION. For each essay, provide the following:\n"
+                f"1. An overall score.\n"
+                f"2. A score for each component(if DESCRIPTION has).\n"
                 f"DESCRIPTION: {description_content}\n"
                 f"CONTENT: {submission_content}\n\n"
-                f"PROMPT: Evaluate the given CONTENT based on the DESCRIPTION.\n"
                 f"Follow the exact format below in your response:\n\n"
                 f"Score: (a number from {min_total}-{max_total})\n"
             )
             for comp in components:
                 prompt += f"{comp}: (a number from {min_comp}-{max_comp})\n"
-
+            
             prompt += (
-                f"Feedback: (Provide clear and concise feedback without including any numbers or scores.)\n\n"
                 f"Example:\n"
                 f"Score: {min_total}\n"
             )
-
             for comp in components:
                 prompt += f"{comp}: {min_comp}\n"
-                
-            prompt += (
-                f"Feedback: The essay presents clear arguments and a strong structure.\n"
+
+            # Feedback prompt
+            fb_prompt = (
+                f"DESCRIPTION: {description_content}\n"
+                f"CONTENT: {submission_content}\n\n"
+                f"Your task: Provide **only constructive feedback** on the CONTENT, based on the DESCRIPTION.\n"
+                f"Do NOT give any score. Be specific and concise. Mention strengths and areas to improve.\n\n"
+                f"If DESCRIPTION has components, provide feedback for each component.\n"
+                f"Follow the exact format below in your response:\n\n"
+                f"Overall Feedback: (Provide holistic feedback about the essay.)\n"
             )
 
-            response = model.generate_content(prompt)
-            response_text = response.text.strip()
+            for comp in components:
+                fb_prompt += f"{comp} Feedback: (Provide specific feedback for the '{comp}' aspect.)\n"
 
-            score, scores, feedback = extract_score_and_feedback(
-                response_text, min_total, max_total, min_comp, max_comp, components
+            fb_prompt += (
+                f"Example:\n"
+                f"Overall Feedback: The essay presents a clear argument with appropriate structure.\n"
             )
 
+            for comp in components:
+                fb_prompt += f"{comp} Feedback: Needs more examples.\n"
+
+            score_rp = model.generate_content(prompt)
+            score_text = score_rp.text.strip()
+            feedback_rp = feedback_model.generate_content(fb_prompt)
+            feedback_text = feedback_rp.text.strip()
+            # print(score_text)
+            # print(feedback_text)
+
+            score, scores = extract_score(
+                score_text, min_total, max_total, min_comp, max_comp, components
+            )
+
+            feedback = clean_feedback(feedback_text)
+            
             results.append({
                 "submission_id": submission_id,
                 "ovr": score,
@@ -183,12 +228,12 @@ def evaluate_submissions(data, output_json_path=None):
                 "ovr": min_total,
                 "scores": [min_comp] * len(components),    # array of component scores
                 "components": components,
-                "feedback": feedback
+                "feedback": "Error processing submission."
             })
     
-    print("--------------------")
-    print(prompt)
-    print(f"Evaluation complete. Results saved")
+    # print("--------------------")
+    # print(prompt)
+    # print(f"Evaluation complete. Results saved")
     return {"results": results}
     
     # with open(output_json_path, 'w', encoding='utf-8') as f:

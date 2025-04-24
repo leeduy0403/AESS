@@ -6,3 +6,4 @@ google-generativeai
 pdfminer.six
 python-docx
 faiss-cpu
+python-dotenv
