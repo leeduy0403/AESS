@@ -9,6 +9,7 @@ import google.generativeai as genai
 import pandas as pd
 from io import BytesIO
 from pdfminer.high_level import extract_text
+import pdfplumber
 from docx import Document
 from vertexai.generative_models import GenerativeModel
 import vertexai
@@ -67,11 +68,15 @@ def extract_docx_text(file_stream):
     except Exception as e:
         return f"Error extracting DOCX: {e}"
 
-def extract_pdf_text(file_stream):
-    try:
-        return extract_text(file_stream)
-    except Exception as e:
-        return f"Error extracting PDF: {e}"
+def extract_pdf_text(pdf_path):
+    output = []
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            height = page.height
+            # Crop to remove top and bottom 50 pts
+            cropped = page.within_bbox((0, 50, page.width, height - 50))
+            output.append(cropped.extract_text())
+    return "\n\n".join(output)
     
 def extract_score_ranges_and_components(description_text):
     """Extracts score ranges and components from the DESCRIPTION text."""
