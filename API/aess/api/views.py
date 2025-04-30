@@ -14,6 +14,15 @@ class genScore(APIView):
 	def post(self, request):
 		print("POST GEN SCORE")
 		return genScoreResponse(request)
+	
+class test(APIView):
+	def get(self, request):
+		print("GET TEST")
+		return Response("Test GET response", status=status.HTTP_200_OK)
+	
+	def post(self, request):
+		print("POST TEST")
+		return Response("Test POST response", status=status.HTTP_200_OK)
 
 class default(APIView):
 	def get(self, request, resource):

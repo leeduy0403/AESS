@@ -16,6 +16,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+vertexai.init(project="ringed-spirit-422415-v6", location="us-central1")
+
 # Now read them from the environment
 api_key = os.getenv("API_KEY")
 genai.configure(api_key=api_key)
