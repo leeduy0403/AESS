@@ -18,17 +18,10 @@ load_dotenv()
 
 # Now read them from the environment
 api_key = os.getenv("API_KEY")
-credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-
 genai.configure(api_key=api_key)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
-
-vertexai.init(project="ringed-spirit-422415-v6", location="us-central1")
 
 model = GenerativeModel(
-    # model_name="projects/147546299476/locations/us-central1/endpoints/3313124303116959744",     #smaller
-    # model_name="projects/147546299476/locations/us-central1/endpoints/7284173274550894592",
-    model_name="projects/558798320545/locations/us-central1/endpoints/6503291320411357184", 
+    model_name="projects/558798320545/locations/us-central1/endpoints/7445388067461922816", 
     generation_config={
         "temperature": 0.3,
         "top_p": 0.95,
@@ -73,35 +66,48 @@ def extract_pdf_text(pdf_path):
     return "\n\n".join(output)
     
 def extract_score_ranges_and_components(description_text):
-    """Extracts score ranges and components from the DESCRIPTION text."""
-    total_score_match = re.search(r"Total\s+Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
+    """Extracts score ranges, components, and coefficients from the DESCRIPTION text."""
 
-    # If not found, try the more general "Score range:"
+    # Match total score range, requiring it to end with '.' or newline
+    total_score_match = re.search(r"Total\s+Scores?\s+range:\s*(\d+)\s*-\s*(\d+)[\.]", description_text, re.IGNORECASE)
     if not total_score_match:
-        total_score_match = re.search(r"Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
-    comp_score_match = re.search(r"Components?\s+Score\s+range:\s*(\d+)\s*-\s*(\d+)", description_text, re.IGNORECASE)
-    components_section = re.search(r"Components:\s*((?:.|\n)*?)(?=(\n[A-Z][^\n]*:|\Z))", description_text, re.IGNORECASE)
+        total_score_match = re.search(r"Scores?\s+range:\s*(\d+)\s*-\s*(\d+)[\.]", description_text, re.IGNORECASE)
 
+    # Match component score range, ending with '.' or newline
+    comp_score_match = re.search(r"Components?\s+Scores?\s+range:\s*(\d+)\s*-\s*(\d+)[\.]", description_text, re.IGNORECASE)
+
+    # Match components list (ends with '.' or newline)
+    components_match = re.search(r"Components?:\s*([^\.]+)", description_text, re.IGNORECASE)
+
+    # Match coefficients (ends with '.' or newline)
+    coefficients_match = re.search(r"Coefficients?:\s*([^\.]+)", description_text, re.IGNORECASE)
+
+    # Extract total score range
     if total_score_match:
         min_total, max_total = map(int, total_score_match.groups())
     else:
         min_total, max_total = 0, 0
 
+    # Extract component score range
     if comp_score_match:
         min_comp, max_comp = map(int, comp_score_match.groups())
     else:
         min_comp, max_comp = 0, 0
 
+    # Extract components
     components = []
-    if components_section:
-        lines = components_section.group(1).splitlines()
-        for line in lines:
-            comp = re.sub(r"^[\s\-•\d\.o]+", "", line).strip()
-            if comp:
-                components.append(comp)
+    if components_match:
+        components_text = components_match.group(1)
+        components = [comp.strip() for comp in components_text.split(',') if comp.strip()]
 
-    print(f"Total Score Range: {min_total}-{max_total}, Component Score Range: {min_comp}-{max_comp}, Components: {components}")
-    return (min_total, max_total), (min_comp, max_comp), components
+    # Extract coefficients
+    coefficients = []
+    if coefficients_match:
+        coefficients_text = coefficients_match.group(1)
+        coefficients = list(map(int, filter(None, re.split(r',\s*', coefficients_text))))
+
+    print(f"Total Score Range: {min_total}-{max_total}, Component Score Range: {min_comp}-{max_comp}, Components: {components}, {coefficients}")
+    return (min_total, max_total), (min_comp, max_comp), components, coefficients
 
 def clean_feedback(feedback):
     """Cleans feedback by removing inline numbers and fixing abrupt endings."""
@@ -113,21 +119,17 @@ def clean_feedback(feedback):
 
     return feedback.strip()
 
-def extract_score(response_text, min_total, max_total, min_comp, max_comp, components):
+def extract_score(response_text, min_total, max_total, min_comp, max_comp, components, coefficients):
     """Extracts overall score, individual component scores and feedback."""
     score = min_total
     component_scores = [min_comp] * len(components)
-
     lines = response_text.strip().split("\n")
-
     for line in lines:
         line = line.strip()
         if line.lower().startswith("score:"):
             match = re.search(r"\d+(\.\d+)?", line)
             if match:
-                score = min(max_total, max(min_total, float(match.group(0))))
-                # if score.is_integer():
-                #     score = int(score)
+                score = min(max_total, max(min_total, int(match.group(0))))
         for comp in components:
             pattern = re.compile(rf"{re.escape(comp)}\s*:\s*(\d+(\.\d+)?)", re.IGNORECASE)
             match = pattern.search(response_text)
@@ -137,10 +139,11 @@ def extract_score(response_text, min_total, max_total, min_comp, max_comp, compo
                     score_val = int(score_val)
                 component_scores[components.index(comp)] = min(max_comp, max(min_comp, score_val))
 
-    # Ensure score is average of components
-    # avg_score = round(sum(component_scores) / len(component_scores))
-    # score = avg_score
-
+    if components:
+        if coefficients:
+            score = sum(coeff * score for coeff, score in zip(coefficients, component_scores))
+        else:
+            score = sum(component_scores)
     return score, component_scores
 
 
@@ -152,7 +155,7 @@ def evaluate_submissions(data, output_json_path=None):
     
     description_urls = data.get("descriptions", [])
     description_content = "\n".join([load_file_content(url) for url in description_urls])
-    (min_total, max_total), (min_comp, max_comp), components = extract_score_ranges_and_components(description_content)
+    (min_total, max_total), (min_comp, max_comp), components, coefficients = extract_score_ranges_and_components(description_content)
     # rubric_content = "\n".join([load_file_content(url) for entry in data.get("rubrics", []) for url in entry.get("rubric_urls", [])])
     
     for submission in data.get("submissions", []):
@@ -205,15 +208,38 @@ def evaluate_submissions(data, output_json_path=None):
             for comp in components:
                 fb_prompt += f"{comp} Feedback: Needs more examples.\n"
 
-            score_rp = model.generate_content(prompt)
-            score_text = score_rp.text.strip()
+            max_retries = 5
+            for attempt in range(max_retries):
+                try:
+                    score_rp = model.generate_content(prompt)
+                    score_text = score_rp.text.strip()
+                    # if not score_text:
+                    #     print(f"⚠️ Empty response for essay_id {essay_id}. Retrying... (Attempt {attempt+1}/{max_retries})")
+                    #     time.sleep(10)  # Add a short delay before retrying
+                    #     continue  # Skip the rest of the loop and retry
+                    
+                    # print(f"Response for essay_id {essay_id}:\n{score_text}")
+                    break  # Break out if successful
+                except Exception as e:
+                    err_msg = str(e)
+                    if "429 Resource exhausted" in err_msg:
+                        # print(f"⚠️ Essay {essay_id}: {err_msg}")
+                        # print(f"Waiting 60 seconds before retrying (Attempt {attempt+1}/{max_retries})...")
+                        time.sleep(60)
+                    else:
+                        raise  # For any other error, do not retry
+            
+            score, scores = extract_score(
+                score_text, min_total, max_total, min_comp, max_comp, components, coefficients
+            )
+
             feedback_rp = feedback_model.generate_content(fb_prompt)
             feedback_text = feedback_rp.text.strip()
             # print(score_text)
             # print(feedback_text)
 
             score, scores = extract_score(
-                score_text, min_total, max_total, min_comp, max_comp, components
+                score_text, min_total, max_total, min_comp, max_comp, components, coefficients
             )
 
             feedback = clean_feedback(feedback_text)
@@ -223,6 +249,7 @@ def evaluate_submissions(data, output_json_path=None):
                 "ovr": score,
                 "scores": scores,   # array of component scores
                 "components": components,
+                "coefficients": coefficients,
                 "feedback": feedback
             })
         except Exception as e:
@@ -232,6 +259,7 @@ def evaluate_submissions(data, output_json_path=None):
                 "ovr": min_total,
                 "scores": [min_comp] * len(components),    # array of component scores
                 "components": components,
+                "coefficients": coefficients,
                 "feedback": "Error processing submission."
             })
     
