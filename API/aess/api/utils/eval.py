@@ -15,6 +15,7 @@ import vertexai
 from dotenv import load_dotenv
 
 load_dotenv()
+vertexai.init(project="ringed-spirit-422415-v6", location="us-central1")
 
 # Now read them from the environment
 api_key = os.getenv("API_KEY")
@@ -73,11 +74,11 @@ def extract_score_ranges_and_components(description_text):
     if not total_score_match:
         total_score_match = re.search(r"Scores?\s+range:\s*(\d+)\s*-\s*(\d+)[\.]", description_text, re.IGNORECASE)
 
-    # Match component score range, ending with '.' or newline
-    comp_score_match = re.search(r"Components?\s+Scores?\s+range:\s*(\d+)\s*-\s*(\d+)[\.]", description_text, re.IGNORECASE)
-
     # Match components list (ends with '.' or newline)
     components_match = re.search(r"Components?:\s*([^\.]+)", description_text, re.IGNORECASE)
+    
+    # Match component score range, ending with '.' or newline
+    comp_score_match = re.search(r"Components?\s+Scores?\s+range:\s*(\d+)\s*-\s*(\d+)[\.]", description_text, re.IGNORECASE)
 
     # Match coefficients (ends with '.' or newline)
     coefficients_match = re.search(r"Coefficients?:\s*([^\.]+)", description_text, re.IGNORECASE)
@@ -89,7 +90,7 @@ def extract_score_ranges_and_components(description_text):
         min_total, max_total = 0, 0
 
     # Extract component score range
-    if comp_score_match:
+    if comp_score_match and components_match:
         min_comp, max_comp = map(int, comp_score_match.groups())
     else:
         min_comp, max_comp = 0, 0
@@ -102,7 +103,7 @@ def extract_score_ranges_and_components(description_text):
 
     # Extract coefficients
     coefficients = []
-    if coefficients_match:
+    if coefficients_match and comp_score_match and components_match:
         coefficients_text = coefficients_match.group(1)
         coefficients = list(map(int, filter(None, re.split(r',\s*', coefficients_text))))
 
