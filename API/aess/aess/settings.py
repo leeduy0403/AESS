@@ -32,6 +32,22 @@ CSRF_TRUSTED_ORIGINS = [
 	'http://localhost:8000',
 ]
 
+# Must set to False when testing locally
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+CSRF_COOKIE_HTTPONLY = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework_api_key.permissions.HasAPIKey',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',  # Needed for admin
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
+
 # Application definition
 
 INSTALLED_APPS = [
