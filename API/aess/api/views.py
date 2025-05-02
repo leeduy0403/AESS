@@ -2,11 +2,13 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_api_key.permissions import HasAPIKey
 from .utils.utils import genScoreResponse
 
-# Create your views here.
 
+# Create your views here.
 class genScore(APIView):
+	permission_classes = [HasAPIKey]
 	def get(self, request):
 		print("GET GEN SCORE")
 		return genScoreResponse(request)
@@ -16,6 +18,7 @@ class genScore(APIView):
 		return genScoreResponse(request)
 	
 class test(APIView):
+	permission_classes = [HasAPIKey]
 	def get(self, request):
 		print("GET TEST")
 		return Response("Test GET response", status=status.HTTP_200_OK)

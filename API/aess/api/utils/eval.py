@@ -144,6 +144,7 @@ def extract_score(response_text, min_total, max_total, min_comp, max_comp, compo
         if coefficients:
             score = sum(coeff * score for coeff, score in zip(coefficients, component_scores))
         else:
+            coefficients = [1] * len(components)
             score = sum(component_scores)
     return score, component_scores
 
