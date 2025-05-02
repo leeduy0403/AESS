@@ -39,7 +39,8 @@ CSRF_TRUSTED_ORIGINS = [
 # SESSION_COOKIE_SECURE = os.environ.get('DJANGO_ENV') == 'production'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+
+# SECURE_SSL_REDIRECT = True	# Causing rerdirect loop on render
 
 CSRF_COOKIE_HTTPONLY = False
 
