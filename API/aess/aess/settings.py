@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,8 +36,8 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Must set to False when testing locally
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = os.environ.get('DJANGO_ENV') == 'production'
+CSRF_COOKIE_SECURE = os.environ.get('DJANGO_ENV') == 'production'
 
 CSRF_COOKIE_HTTPONLY = False
 
