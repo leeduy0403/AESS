@@ -31,13 +31,15 @@ DEBUG = True
 ALLOWED_HOSTS = ['aess-b5hr.onrender.com', '.localhost', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://aess-b5hr.onrender.com/',
-	'http://localhost:8000',
+    'https://aess-b5hr.onrender.com',
 ]
 
 # Must set to False when testing locally
-SESSION_COOKIE_SECURE = os.environ.get('DJANGO_ENV') == 'production'
-CSRF_COOKIE_SECURE = os.environ.get('DJANGO_ENV') == 'production'
+# CSRF_COOKIE_SECURE = os.environ.get('DJANGO_ENV') == 'production'
+# SESSION_COOKIE_SECURE = os.environ.get('DJANGO_ENV') == 'production'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 CSRF_COOKIE_HTTPONLY = False
 
