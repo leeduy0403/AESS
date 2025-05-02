@@ -243,10 +243,6 @@ def evaluate_submissions(data, output_json_path=None):
             # print(score_text)
             # print(feedback_text)
 
-            score, scores = extract_score(
-                score_text, min_total, max_total, min_comp, max_comp, components, coefficients
-            )
-
             feedback = clean_feedback(feedback_text)
             
             results.append({
