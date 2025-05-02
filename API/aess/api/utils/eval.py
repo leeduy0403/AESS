@@ -151,6 +151,10 @@ def extract_score(response_text, min_total, max_total, min_comp, max_comp, compo
 def evaluate_submissions(data, output_json_path=None):
     # with open(input_json_path, 'r', encoding='utf-8') as f:
     #     data = json.load(f)
+    filepath = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+    if filepath and not os.path.isabs(filepath):
+        filepath = os.path.join(os.getcwd(), filepath)  # Convert to absolute path if not already
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = filepath
     
     results = []
     
