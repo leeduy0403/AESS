@@ -23,10 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d!bda!2*w8(*t@5z^kultzul+li7dz2m8f47_g%a!a&b32u(7i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['aess-b5hr.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['https://aess-b5hr.onrender.com/', '.localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://aess-b5hr.onrender.com/',
+	'http://localhost:8000',
+]
 
 # Application definition
 
