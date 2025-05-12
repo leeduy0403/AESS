@@ -11,3 +11,4 @@ pdfplumber
 vertexai
 requests
 djangorestframework-api-key
+pandas
