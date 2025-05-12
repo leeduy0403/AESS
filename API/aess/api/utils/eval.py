@@ -208,7 +208,7 @@ def extract_score_ranges_and_components(description_text):
     if coefficients_match:
         coefficients_text = coefficients_match.group(1)
         coefficients = [
-            normalize_number(coef) for coef in re.split(r'[;\s]+', coefficients_text) if coef.strip()
+            normalize_number(coef) for coef in re.split(r'[,;\s]+', coefficients_text) if coef.strip()
         ]
 
     # Mismatch check
