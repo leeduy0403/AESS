@@ -208,7 +208,7 @@ def extract_score_ranges_and_components(description_text):
     if coefficients_match:
         coefficients_text = coefficients_match.group(1)
         coefficients = [
-            normalize_number(coef) for coef in re.split(r'[,;\s]+', coefficients_text) if coef.strip()
+            normalize_number(coef) for coef in re.split(r'[;\s]+', coefficients_text) if coef.strip()
         ]
 
     # Mismatch check
@@ -342,8 +342,6 @@ def evaluate_submissions(data, output_json_path=None):
         filepath = os.path.join(os.getcwd(), filepath)  # Convert to absolute path if not already
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = filepath
     
-    results = []
-    
     description_urls = data.get("descriptions", [])
     # description_content = "\n".join([load_file_content(url) for url in description_urls])
     # (min_total, max_total), (min_comp, max_comp), components, coefficients = extract_score_ranges_and_components(description_content)
@@ -397,6 +395,8 @@ def evaluate_submissions(data, output_json_path=None):
                 submission_texts.append(content)
             
         submission_content = "\n".join(submission_texts)
+        
+        output = []
         
         try:
             # Scoring prompt
@@ -469,7 +469,7 @@ def evaluate_submissions(data, output_json_path=None):
 
             feedback = clean_feedback(feedback_text)
             
-            results.append({
+            output.append({
                 "submission_id": submission_id,
                 "ovr": score,
                 "scores": scores,   # array of component scores
@@ -479,7 +479,7 @@ def evaluate_submissions(data, output_json_path=None):
             })
         except Exception as e:
             print(f"Error processing submission_id {submission_id}: {e}")
-            results.append({
+            output.append({
                 "submission_id": submission_id,
                 "ovr": min_total,
                 "scores": [0] * len(components),    # array of component scores
@@ -490,8 +490,8 @@ def evaluate_submissions(data, output_json_path=None):
     
     # print("--------------------")
     # print(prompt)
-    # print(f"Evaluation complete. Results saved")
-    return {"results": results, "status": status.HTTP_200_OK}  # return OK
+    # print(f"Evaluation complete. output saved")
+    return {"result": output, "status": status.HTTP_200_OK}  # return OK
     
     # with open(output_json_path, 'w', encoding='utf-8') as f:
     #     json.dump(output_data, f, indent=4)
