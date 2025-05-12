@@ -382,6 +382,7 @@ def evaluate_submissions(data, output_json_path=None):
             component_ranges = results["component_ranges"]
             coefficients = results["coefficients"]
 
+    evaluation_results = []
     for submission in data.get("submissions", []):
         submission_id = submission["submission_id"]
         submission_urls = submission["submission_urls"]
@@ -396,7 +397,6 @@ def evaluate_submissions(data, output_json_path=None):
             
         submission_content = "\n".join(submission_texts)
         
-        output = []
         
         try:
             # Scoring prompt
@@ -469,7 +469,7 @@ def evaluate_submissions(data, output_json_path=None):
 
             feedback = clean_feedback(feedback_text)
             
-            output.append({
+            evaluation_results.append({
                 "submission_id": submission_id,
                 "ovr": score,
                 "scores": scores,   # array of component scores
@@ -479,7 +479,7 @@ def evaluate_submissions(data, output_json_path=None):
             })
         except Exception as e:
             print(f"Error processing submission_id {submission_id}: {e}")
-            output.append({
+            evaluation_results.append({
                 "submission_id": submission_id,
                 "ovr": min_total,
                 "scores": [0] * len(components),    # array of component scores
@@ -491,7 +491,7 @@ def evaluate_submissions(data, output_json_path=None):
     # print("--------------------")
     # print(prompt)
     # print(f"Evaluation complete. output saved")
-    return {"result": output, "status": status.HTTP_200_OK}  # return OK
+    return {"result": evaluation_results, "status": status.HTTP_200_OK}  # return OK
     
     # with open(output_json_path, 'w', encoding='utf-8') as f:
     #     json.dump(output_data, f, indent=4)
