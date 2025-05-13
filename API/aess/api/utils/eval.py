@@ -491,7 +491,7 @@ def evaluate_submissions(data, output_json_path=None):
     # print("--------------------")
     # print(prompt)
     # print(f"Evaluation complete. output saved")
-    return {"result": evaluation_results, "status": status.HTTP_200_OK}  # return OK
+    return {"results": evaluation_results, "status": status.HTTP_200_OK}  # return OK
     
     # with open(output_json_path, 'w', encoding='utf-8') as f:
     #     json.dump(output_data, f, indent=4)
