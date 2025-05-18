@@ -4,7 +4,12 @@ import json
 from .eval import evaluate_submissions
 
 def genScoreResponse(request):
-	data = json.loads(request.body)
+	try:
+		data = json.loads(request.body)
+	except Exception as e:
+		print(f"Error parsing JSON: {e}")
+		return Response("Wrong JSON request format", status=status.HTTP_400_BAD_REQUEST)
+	
 	try:
 		response = evaluate_submissions(data=data)
 		return Response(response, status=response["status"])
