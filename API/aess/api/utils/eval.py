@@ -401,7 +401,7 @@ def evaluate_submissions(data, output_json_path=None):
         try:
             # Scoring prompt
             prompt = (
-                f"Evaluate the given CONTENT based on the DESCRIPTION. For each essay, provide the following:\n"
+                f"Evaluate the given CONTENT based on the DESCRIPTION. If CONTENT does not relevant to DESCRIPTION, score will be minimum. For each essay, provide the following:\n"
                 f"1. An overall score.\n"
                 f"2. A score for each component(if DESCRIPTION has).\n"
                 f"DESCRIPTION: {description_content}\n"
@@ -422,7 +422,7 @@ def evaluate_submissions(data, output_json_path=None):
             fb_prompt = (
                 f"DESCRIPTION: {description_content}\n"
                 f"CONTENT: {submission_content}\n\n"
-                f"Your task: Provide **only constructive feedback** on the CONTENT, based on the DESCRIPTION.\n"
+                f"Your task: Provide **only constructive feedback** on the CONTENT, based on the DESCRIPTION. Check carefully If CONTENT does not relevant to DESCRIPTION, Overall Feedback will show 'The content is not related to the description' and explain. Please give feedback as many details as possible\n"
                 f"Do NOT give any score. Be specific and concise. Mention strengths and areas to improve.\n\n"
                 f"If DESCRIPTION has components, provide feedback for each component.\n"
                 f"Follow the exact format below in your response:\n\n"
@@ -443,7 +443,7 @@ def evaluate_submissions(data, output_json_path=None):
             max_retries = 5
             for attempt in range(max_retries):
                 try:
-                    score_rp = model.generate_content(prompt)
+                    score_rp = feedback_model.generate_content(prompt)
                     score_text = score_rp.text.strip()
                     if not score_text:
                         print(f"⚠️ Empty response. Retrying... (Attempt {attempt+1}/{max_retries})")
