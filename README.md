@@ -13,11 +13,15 @@ The core of this project is a report-based evaluation system that utilizes Googl
 ![System Architecture](imgs/architecture.png)
 
 ## 🧠 Dataset
-* We get the data set in this link: https://www.kaggle.com/competitions/asap-aes
+* We get the data set in this link: [Dataset](https://www.kaggle.com/competitions/asap-aes)
 
 ## 👨‍🏫 Result
 * Our best result is shown in the image below:
 ![Result](imgs/result.png)
+
+## Video demo
+* You can watch our website via this link: [Video demonstration](https://youtu.be/LhpiTtmS75w)
+
 
 ## ✨ Key Features
 
@@ -62,28 +66,17 @@ This project is built on a modern, microservice-oriented architecture:
 
 The highlight of the project is the automated scoring model.
 
-* [cite_start]**Model:** We fine-tuned Google's **Gemini 2.0 Flash** model[cite: 1263].
-* [cite_start]**Data:** The model was trained on the **ASAP (Automated Essay Scoring) dataset** from Kaggle, which includes 8 different essay sets[cite: 1038, 1039].
-* [cite_start]**Performance:** Our best-performing model (trained on 7000 samples, temp = 0.3) achieved a **Quadratic Weighted Kappa (QWK) score of 0.6952**[cite: 1226, 1231].
-* [cite_start]**Result:** This QWK score indicates a high agreement with human raters [cite: 1227] [cite_start]and meets the "acceptable" threshold (often > 0.70) for automated scoring systems [cite: 1233][cite_start], validating its potential for practical application[cite: 1234, 1235].
-
-## 📸 Screenshots
-
-Here are a few key interfaces of the system (based on figures in the report):
-
-* [cite_start]**Homepage & Sign-in:** [cite: 884, 885]
-* [cite_start]**Course Page (Student):** Shows materials, assignments, and grades[cite: 887, 888, 889].
-* [cite_start]**Course Page (Educator):** Edit mode, assignment configuration, and group management[cite: 896, 897, 899].
-* [cite_start]**Chat Interface:** [cite: 890, 1148]
-* [cite_start]**Grading Page (Educator):** Shows student grades, AI suggestions, and allows for adjustments[cite: 901].
-* [cite_start]**Grade Details (Student):** Displays component scores, overall feedback, and final grade[cite: 902].
+**Model:** We fine-tuned Google's **Gemini 2.0 Flash** model[cite: 1263].
+**Data:** The model was trained on the **ASAP (Automated Essay Scoring) dataset** from Kaggle, which includes 8 different essay sets.
+**Performance:** Our best-performing model (trained on 7000 samples, temp = 0.3) achieved a **Quadratic Weighted Kappa (QWK) score of 0.6952**.
+**Result:** This QWK score indicates a high agreement with human raters and meets the "acceptable" threshold (often > 0.70) for automated scoring systems, validating its potential for practical application.
 
 ## 🏁 Getting Started
 
 To run this project locally, you will need to set up all three components: the frontend, the web backend (Node.js), and the AI service (Python).
 
 ### 1. Backend (Web Service - Node.js)
-[cite_start]Based on the `backend/routes` file structure[cite: 977]:
+Based on the `backend/routes` file structure:
 ```bash
 # Navigate to the backend directory
 cd backend
