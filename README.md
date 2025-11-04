@@ -66,7 +66,7 @@ This project is built on a modern, microservice-oriented architecture:
 
 The highlight of the project is the automated scoring model.
 
-**Model:** We fine-tuned Google's **Gemini 2.0 Flash** model[cite: 1263].
+**Model:** We fine-tuned Google's **Gemini 2.0 Flash** model.
 **Data:** The model was trained on the **ASAP (Automated Essay Scoring) dataset** from Kaggle, which includes 8 different essay sets.
 **Performance:** Our best-performing model (trained on 7000 samples, temp = 0.3) achieved a **Quadratic Weighted Kappa (QWK) score of 0.6952**.
 **Result:** This QWK score indicates a high agreement with human raters and meets the "acceptable" threshold (often > 0.70) for automated scoring systems, validating its potential for practical application.
